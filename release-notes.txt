@@ -7,14 +7,23 @@ I used the following api:  https://api.weatherapi.com
 
 
 -- Running output example
+    -- No active otp found & Save to DB
+PS C:\Users\nirby\node-otp-app> node server.js     
+Server is running on port 5000
+Connected to PostgreSQL database
+email: nirby7@gmail.com
+No active otp found for the user: nirby7@gmail.com
+City IDs: [ 'New York', 'London', 'Paris' ]
+Generated OTP: 091010
+Saving OTP to the database:
+Email: nirby7@gmail.com
+OTP: 091010
+OTP Expiry: 2024-03-27T16:34:15.343Z
+OTP saved to the database successfully
+
+    -- Active otp found & without saving to DB
 PS C:\Users\nirby\node-otp-app> node server.js
 Server is running on port 5000
 Connected to PostgreSQL database
 email: nirby7@gmail.com
-City IDs: [ 'New York', 'London', 'Paris' ]
-Generated OTP: 061009
-Saving OTP to the database:
-    Email: nirby7@gmail.com
-    OTP: 061009
-    OTP Expiry: 2024-03-27T11:49:00.023Z
-OTP saved to the database successfully
+Active otp found: 091010 Otp Expiration: 2024-03-27T16:34:15.343Z

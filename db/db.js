@@ -24,9 +24,12 @@ pool.connect((err, client, done) => {
 
 
 
-// Function to save OTP to the database
+/* Function to save OTP to the database
+*   We are using the ON CONFLICT ... DO UPDATE clause in PostgreSQL to perform an upsert operation (insert or update if a conflict occurs) 
+*   instead of explicitly checking for the existence of a record and then deciding whether to update or insert.
+*/
+
 async function saveOTPToDatabase(email, otp, otpExpiry) {
-  //const client = await pool.connect();
   
   console.log('Saving OTP to the database:');
   console.log('Email:', email);
@@ -40,7 +43,7 @@ async function saveOTPToDatabase(email, otp, otpExpiry) {
     await client.query('BEGIN');
 
     // Insert OTP data into the database
-    const queryText = 'INSERT INTO otp_data(email, otp, otp_expiry) VALUES($1, $2, $3)';
+    const queryText = `INSERT INTO otp_data(email, otp, otp_expiry) VALUES($1, $2, $3) ON CONFLICT (email) DO UPDATE SET otp = EXCLUDED.otp, otp_expiry = EXCLUDED.otp_expiry`;
     const queryParams = [email, otp, otpExpiry];
     await client.query(queryText, queryParams);
 

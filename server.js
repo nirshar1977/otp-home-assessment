@@ -4,6 +4,7 @@
 const cors = require('cors');
 
 const { generateOTP } = require('./services/codeGeneratorService');
+const { sendOTPByEmail } = require('./services/emailService');
 const { getOtpExpiration } = require('./helpers/otpHelper');
 const { saveOTPToDatabase, getActiveOTP } = require('./db/db');
 const { apiKey, cityList } = require('./config/config'); 
@@ -55,7 +56,7 @@ app.post('/send-otp', async (req, res) => {
     }
 
     // Send OTP via email
-    //await sendOTPByEmail(email, otp);
+    await sendOTPByEmail(email, otp);
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
     console.error(error);

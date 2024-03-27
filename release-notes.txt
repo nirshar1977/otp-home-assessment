@@ -1,0 +1,6 @@
+-- DB
+Tested with PostgresDB with pg library installed
+Used basic JDBC queries, maybe need to consider using TypeOrm
+
+-- Weather API - 3rd party
+I used the following api:  https://api.weatherapi.com

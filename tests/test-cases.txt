@@ -1,0 +1,11 @@
+Test Cases for send-otp API:
+---------------------------
+1. Test for Successful OTP Sending
+2. Test for Missing Email
+3. Test for Invalid Email Format
+4. Test for Email Sending Failure
+
+Test Cases for send-otp DB:
+---------------------------
+1. Test get active otp
+2. test save new otp

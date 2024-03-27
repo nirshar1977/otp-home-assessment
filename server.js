@@ -55,7 +55,7 @@ app.post('/send-otp', async (req, res) => {
     }
 
     // Send OTP via email
-    await sendOTPByEmail(email, otp);
+    //await sendOTPByEmail(email, otp);
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
     console.error(error);
@@ -66,3 +66,5 @@ app.post('/send-otp', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;

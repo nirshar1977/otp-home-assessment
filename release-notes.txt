@@ -4,3 +4,17 @@ Used basic JDBC queries, maybe need to consider using TypeOrm
 
 -- Weather API - 3rd party
 I used the following api:  https://api.weatherapi.com
+
+
+-- Running output example
+PS C:\Users\nirby\node-otp-app> node server.js
+Server is running on port 5000
+Connected to PostgreSQL database
+email: nirby7@gmail.com
+City IDs: [ 'New York', 'London', 'Paris' ]
+Generated OTP: 061009
+Saving OTP to the database:
+    Email: nirby7@gmail.com
+    OTP: 061009
+    OTP Expiry: 2024-03-27T11:49:00.023Z
+OTP saved to the database successfully

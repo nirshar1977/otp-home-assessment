@@ -1,13 +1,14 @@
 //server.js
 
 //---------------------------------------------------------------
+const cors = require('cors');
 
 const { generateOTP } = require('./services/codeGeneratorService');
 const { getOtpExpiration } = require('./helpers/otpHelper');
 const { saveOTPToDatabase, getActiveOTP } = require('./db/db');
 const { apiKey, cityList } = require('./config/config'); 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; //TODO: Can be read from config as a wrapper which is reads from env file
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -17,6 +18,10 @@ const app = express();
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
+// Enable CORS for all routes
+app.use(cors());
+
+//---------------------------------------------------------------
 
 // Endpoint to generate and send OTP
 app.post('/send-otp', async (req, res) => {
@@ -54,7 +59,7 @@ app.post('/send-otp', async (req, res) => {
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to generate OTP' });
+    res.status(500).json({ error: 'Failed to send OTP' });
   }
 });
 

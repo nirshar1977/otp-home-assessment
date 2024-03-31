@@ -4,33 +4,32 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Configure Nodemailer using environment variables
-const transporter = nodemailer.createTransport({
-    //service: 'Gmail', 
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+  const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: process.env.EMAIL_SECURE === 'true',
     auth: {
-      user: process.env.EMAIL_USER, 
-      pass: process.env.EMAIL_PASS, 
+        user: process.env.EMAIL_USER,
+        pass: process.env.APP_SPECIFIC_PASSWORD,
     },
-  });
+});
 
 // This function sends OTP by email
 async function sendOTPByEmail(email, otpCode) {
     try {
-      // Send mail with defined transport object
-      await transporter.sendMail({
-        from: 'nirby7@gmail.com',
-        to: email,
-        subject: 'Your OTP Code',
-        text: `Your OTP code is: ${otpCode}`,
+     const info = await transporter.sendMail({
+          from: process.env.EMAIL_FROM,
+          to: email,
+          subject:`Your OTP Code`,
+          text: `Your OTP code is: ${otpCode}`
       });
-      console.log('OTP sent successfully!');
+      console.log('Email sent:', info.messageId);
+      return info.messageId;
     } catch (error) {
-      console.error('Error sending OTP:', error);
+        console.error('Error sending email:', error);
+        throw error;
     }
-  }
+ }
   
   // Export the function to use in other modules
   module.exports = {sendOTPByEmail};

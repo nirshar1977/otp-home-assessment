@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../server.js');
 
 describe('POST /send-otp', () => {
+
   let server;
 
   beforeAll(async () => {
@@ -13,7 +14,7 @@ describe('POST /send-otp', () => {
   afterAll(async () => {
     await server.close();
   });
-
+  
   it('should return a success message if OTP is sent successfully', async () => {
     const response = await request(app)
       .post('/send-otp')
@@ -41,6 +42,3 @@ describe('POST /send-otp', () => {
     expect(res.body).toHaveProperty('error', 'Invalid email format'); // Expecting an error message in the response body
   });
 });
-
-
-

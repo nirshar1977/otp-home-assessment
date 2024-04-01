@@ -5,16 +5,6 @@ const app = require('../server.js');
 
 describe('POST /send-otp', () => {
 
-  let server;
-
-  beforeAll(async () => {
-    server = await app.listen(3000); 
-  });
-
-  afterAll(async () => {
-    await server.close();
-  });
-  
   it('should return a success message if OTP is sent successfully', async () => {
     const response = await request(app)
       .post('/send-otp')

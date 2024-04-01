@@ -11,7 +11,7 @@ const { getOtpExpiration } = require('./helpers/otpHelper');
 const { saveOTPToDatabase, getActiveOTP } = require('./db/db');
 const { apiKey, cityList } = require('./config/config'); 
 
-const PORT = process.env.PORT || 5000; 
+const PORT = process.env.PORT; 
 
 const bodyParser = require('body-parser');
 const express = require('express');

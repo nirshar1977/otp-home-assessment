@@ -7,6 +7,8 @@ module.exports = {
       'ts-jest': {
         tsConfig: 'tsconfig.json',
       }
-    }
+    },
+    detectOpenHandles: true,
+    globalSetup: './globalTestSetup.js'
   };
   

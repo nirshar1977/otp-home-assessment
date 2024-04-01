@@ -1,8 +1,7 @@
 // Import the necessary modules for testing
 const { getActiveOTP } = require('../db/db');
-
 const request = require('supertest');
-const app = require('../server.js');
+
 
 // Mock the database connection or use a test database
 jest.mock('../db/db');

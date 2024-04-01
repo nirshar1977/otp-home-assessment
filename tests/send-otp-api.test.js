@@ -1,6 +1,11 @@
 //send-otp-api.test
 
-const request = require('supertest');
+/**
+ * We are using the supertest package in order to make HTTP requests and test our API endpoints. 
+ * supertest is a popular library for testing Node.js HTTP servers and allows us to easily send HTTP requests
+ * to our server and make assertions on the responses.
+ */
+const request = require('supertest'); 
 const app = require('../server.js');
 
 describe('POST /send-otp', () => {

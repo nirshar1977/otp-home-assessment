@@ -9,7 +9,7 @@ const { getOtpExpiration } = require('./helpers/otpHelper');
 const { saveOTPToDatabase, getActiveOTP } = require('./db/db');
 const { apiKey, cityList } = require('./config/config'); 
 
-const PORT = process.env.PORT || 5000; //TODO: Can be read from config as a wrapper which is reads from env file
+const PORT = process.env.PORT || 5000; 
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -35,7 +35,7 @@ app.post('/send-otp', async (req, res) => {
 
     let otp = await getActiveOTP(email); // Currently we are going to the DB, but we can use cache instead e.g: Redis
     const currentTime = new Date();
-
+    
     if (otp && otp.otp_expiry > currentTime) {
       // Active OTP exists and hasn't expired yet
       otp = otp.otp;

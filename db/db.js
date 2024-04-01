@@ -1,26 +1,15 @@
 // db.js
 const { Pool } = require('pg');
-
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 
-// Create a PostgreSQL pool
+const DATABASE_URL = process.env.DATABASE_URL;
+
+// Create a PostgreSQL pool using the database URL
 const pool = new Pool({
-    host: process.env.PG_HOST,
-    user: process.env.PG_USER,
-    //password: process.env.PG_PASSWORD,
-    database: process.env.PG_DATABASE,
-    port: 5432, // Default PostgreSQL port
+  connectionString: DATABASE_URL,
+  ssl: false, // Disable SSL
 });
-
-pool.connect((err, client, done) => {
-    if (err) {
-      console.error('Error connecting to PostgreSQL:', err.stack);
-    } else {
-      console.log('Connected to PostgreSQL database');
-    }
-  });
 
 
 
@@ -31,10 +20,10 @@ pool.connect((err, client, done) => {
 
 async function saveOTPToDatabase(email, otp, otpExpiry) {
   
-  console.log('Saving OTP to the database:');
+  console.log('About to save OTP info to the database:');
   console.log('Email:', email);
   console.log('OTP:', otp);
-  console.log('OTP Expiry:', otpExpiry);
+  console.log('OTP Expiry:', otpExpiry.toLocaleString());
 
   //Get connection from pool
   const client = await pool.connect();
@@ -71,11 +60,11 @@ async function getActiveOTP(email) {
       if (result.rows.length > 0) {
         // Return the active OTP and its expiry time
         const otp =  result.rows[0].otp;
-        const otpEpiration = result.rows[0].otp_expiry;
-        console.log("Active otp found:", otp, "Otp Expiration:", otpEpiration);
+        const otpExpiration  = result.rows[0].otp_expiry;
+        console.log("Active otp found:", otp, "with expiration date:", otpExpiration.toLocaleString());
         return {
           otp: otp,
-          otp_expiry: otpEpiration,
+          otp_expiry: otpExpiration ,
         };
       } else {
         console.log("No active otp found for the user:", email);

@@ -23,7 +23,7 @@ async function sendOTPByEmail(email, otpCode) {
           subject:`Your OTP Code`,
           text: `Your OTP code is: ${otpCode}`
       });
-      console.log('Email sent:', info.messageId);
+      console.log('Otp sent successfully by email to:', email);
       return info.messageId;
     } catch (error) {
         console.error('Error sending email:', error);

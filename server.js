@@ -2,6 +2,8 @@
 
 //---------------------------------------------------------------
 const cors = require('cors');
+const validator = require('validator'); 
+
 
 const { generateOTP } = require('./services/codeGeneratorService');
 const { sendOTPByEmail } = require('./services/emailService');
@@ -28,9 +30,12 @@ app.use(cors());
 app.post('/send-otp', async (req, res) => {
   try {
     const { email } = req.body;
-    console.log("email:", email);
     if (!email) {
       return res.status(400).json({ error: 'Email is required' });
+    }
+    if (!validator.isEmail(email)) {
+      console.error(`Invalid email format:[${email}]`);
+      return res.status(400).json({ error: 'Invalid email format' });
     }
 
     let otp = await getActiveOTP(email); // Currently we are going to the DB, but we can use cache instead e.g: Redis
